@@ -69,20 +69,32 @@ static esp_err_t mqtt_event_handler(esp_mqtt_event_handle_t event)
             // Get the topic name
             char *topic = malloc(event->topic_len);
             memcpy(topic, event->topic, event->topic_len);
-            topic[event->topic_len] = '\0';;
+            topic[event->topic_len] = '\0';
+
+            // Get the data
+            char *data = malloc(event->data_len);
+            memcpy(data, event->data, event->data_len);
+            data[event->data_len] = '\0';
+
+            ESP_LOGI(TAG, "data: %s", data);
 
             if (strcmp(topic, LEFT_DOOR_TOPIC) == 0) {
-                gpio_set_level(LEFT_DOOR_GPIO, 0);
-                vTaskDelay(500 / portTICK_PERIOD_MS);
-                gpio_set_level(LEFT_DOOR_GPIO, 1);
+                if (strcmp(data, "PUSH") == 0) {
+                    gpio_set_level(LEFT_DOOR_GPIO, 0);
+                    vTaskDelay(500 / portTICK_PERIOD_MS);
+                    gpio_set_level(LEFT_DOOR_GPIO, 1);
+                }
 
             } else if (strcmp(topic, RIGHT_DOOR_TOPIC) == 0) {
-                gpio_set_level(RIGHT_DOOR_GPIO, 0);
-                vTaskDelay(500 / portTICK_PERIOD_MS);
-                gpio_set_level(RIGHT_DOOR_GPIO, 1);
+                if (strcmp(data, "PUSH") == 0) {
+                    gpio_set_level(RIGHT_DOOR_GPIO, 0);
+                    vTaskDelay(500 / portTICK_PERIOD_MS);
+                    gpio_set_level(RIGHT_DOOR_GPIO, 1);
+                }
             }
 
             free(topic);
+            free(data);
             break;
         case MQTT_EVENT_ERROR:
             ESP_LOGI(TAG, "MQTT_EVENT_ERROR");
