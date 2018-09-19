@@ -1,1 +1,1 @@
-# ESPMQTT Sample application
+# garage-esp32
