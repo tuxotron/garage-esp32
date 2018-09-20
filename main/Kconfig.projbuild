@@ -13,19 +13,19 @@ config WIFI_PASSWORD
         WiFi password (WPA or WPA2) for the example to use.
 
 config MQTT_SERVER
-    string "WiFi Password"
+    string "MQTT Server"
     default "iot.eclipse.org"
     help
         WiFi password (WPA or WPA2) for the example to use.
 
 config MQTT_USERNAME
-    string "WiFi Password"
+    string "MQTT Username"
     default ""
     help
         WiFi password (WPA or WPA2) for the example to use.
 
 config MQTT_PASSWORD
-    string "WiFi Password"
+    string "MQTT Password"
     default ""
     help
         WiFi password (WPA or WPA2) for the example to use.
