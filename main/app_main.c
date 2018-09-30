@@ -178,6 +178,8 @@ static void mqtt_app_start(void)
 {
     const esp_mqtt_client_config_t mqtt_cfg = {
         .uri = CONFIG_MQTT_SERVER,
+        .username = CONFIG_MQTT_USERNAME,
+        .password = CONFIG_MQTT_PASSWORD,
         .event_handle = mqtt_event_handler,
         // .user_context = (void *)your_context
     };
